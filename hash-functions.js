@@ -84,10 +84,19 @@ class CustomHashTable {
                 if (this.table[index][i][0] === key) {
                     this.table[index].splice(i, 1)
                     this.size--
+
+                    // Check if resizing is needed after deletion.
+                    if(this.size < this.table.length * 0.25) {
+                        return this.resize(this.table.length / 2)
+                    }
+
                     // Return true if the key was successfully deleted.
                     return true
                 }
             }
+        }
+        if(!this.shouldResize()) {
+            return this.resize(this.table.length / 2)
         }
         // Return false if the key was not found.
         return false
@@ -120,9 +129,19 @@ ht.insert('on', 'on')
 ht.insert('new', 'new')
 ht.insert('chain', 'chain')
 
+// removing keys from hash table. 
+ht.delete('chain')
+ht.delete('racks')
+ht.delete('Spend')
+ht.delete('Yuh')
+ht.delete('ooh')
+
 // log hash table
 ht.dump()
-console.log(ht.get('chain'));
+
+
+
+
 
 
 
